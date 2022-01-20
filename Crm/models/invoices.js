@@ -8,9 +8,10 @@ const invoiceSchema = mongoose.Schema(
     },
     email: {
       type: String,
+      unique:true
     },
-    address:{
-      type:String
+    address: {
+      type: String
     },
     phone: {
       type: Number,
@@ -31,15 +32,18 @@ const invoiceSchema = mongoose.Schema(
     Id: {
       type: String,
     },
-    InvoiceNo:{
-      type:String
+    InvoiceNo: {
+      type: String
     },
-    serialNo:{
-     type:String
+    serial: {
+      type: String
     },
     isAquakartUser: {
-      default:false,
+      default: false,
       type: Boolean,
+    },
+    aquakartuser: {
+      type: String
     },
     Type: {
       type: String,

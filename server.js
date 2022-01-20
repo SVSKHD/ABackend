@@ -19,7 +19,7 @@ const app = express();
 
 // db
 mongoose
-  .connect(process.env.DATABASE_URI, {
+  .connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,

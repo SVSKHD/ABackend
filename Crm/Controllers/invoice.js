@@ -8,9 +8,9 @@ exports.createInvoice = async (req, res) => {
     const day = new Date().getDate();
     const year = new Date().getFullYear();
     const MonthName = Months[Month]
-    const todaysDate = `${day}/${Month}/${year}`;
+    const todaysDate = `${day}/${Months[Month]}/${year}`;
     try {
-      const { name, phone, email, Type, address ,product, date , price , quantity ,serialNo ,  isAquakartUser } = req.body;
+      const { name, phone, email, Type, address ,product, date , price , quantity ,serial ,  isAquakartUser , aquakartuser } = req.body;
       res.json(
         await new Invoice({
           name,
@@ -21,8 +21,9 @@ exports.createInvoice = async (req, res) => {
           product,
           price,
           quantity,
-          isAquakartUser,
-          serialNo,
+          isAquakartUser:false,
+          aquakartuser,
+          serial,
           date: todaysDate,
           InvoiceNo:`${MonthName}-${id.generate()}`,
           Id: id.generate(),
