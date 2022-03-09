@@ -10,7 +10,7 @@ exports.createInvoice = async (req, res) => {
     const MonthName = Months[Month]
     const todaysDate = `${day}/${Months[Month]}/${year}`;
     try {
-      const { name, phone, email, Type, address ,product, date , price , quantity ,serial ,  isAquakartUser , aquakartuser } = req.body;
+      const { name, phone, email, Type, address ,product, date , price , quantity ,serial ,  isAquakartUser , aquakartuser , Gst , gstInvoice , paymentType } = req.body;
       res.json(
         await new Invoice({
           name,
@@ -21,9 +21,12 @@ exports.createInvoice = async (req, res) => {
           product,
           price,
           quantity,
+          paymentType:paymentType,
           isAquakartUser:false,
           aquakartuser,
           serial,
+          Gst:Gst,
+          gstInvoice:gstInvoice,
           date: todaysDate,
           InvoiceNo:`${MonthName}-${id.generate()}`,
           Id: id.generate(),

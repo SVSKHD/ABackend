@@ -8,10 +8,13 @@ const invoiceSchema = mongoose.Schema(
     },
     email: {
       type: String,
-      unique:true
+      unique: true
     },
     address: {
       type: String
+    },
+    paymentType:{
+     type:String
     },
     phone: {
       type: Number,
@@ -37,6 +40,13 @@ const invoiceSchema = mongoose.Schema(
     },
     serial: {
       type: String
+    },
+    Gst:{
+      type:String,
+    },
+    gstInvoice: {
+      default: false,
+      type: Boolean
     },
     isAquakartUser: {
       default: false,

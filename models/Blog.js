@@ -49,7 +49,6 @@ const blogSchema = new mongoose.Schema({
       type:ObjectId,
       ref:"BlogCategory"
     },
-
 },{timestamps:true})
 
 module.exports = mongoose.model("Blog" , blogSchema)
