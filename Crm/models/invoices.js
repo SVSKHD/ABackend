@@ -41,6 +41,12 @@ const invoiceSchema = mongoose.Schema(
     serial: {
       type: String
     },
+    businessName:{
+      type:String
+    },
+    businessAddress:{
+      type:String
+    },
     Gst:{
       type:String,
     },

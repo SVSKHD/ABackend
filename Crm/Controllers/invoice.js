@@ -9,8 +9,9 @@ exports.createInvoice = async (req, res) => {
     const year = new Date().getFullYear();
     const MonthName = Months[Month]
     const todaysDate = `${day}/${Months[Month]}/${year}`;
+    let InvoiceNo = `${MonthName}-${id.generate()}`
     try {
-      const { name, phone, email, Type, address ,product, date , price , quantity ,serial ,  isAquakartUser , aquakartuser , Gst , gstInvoice , paymentType } = req.body;
+      const { name, phone, email, Type, address ,product, date , price , quantity ,serial ,  businessName , businessAddress, aquakartuser , Gst , gstInvoice , paymentType } = req.body;
       res.json(
         await new Invoice({
           name,
@@ -27,8 +28,10 @@ exports.createInvoice = async (req, res) => {
           serial,
           Gst:Gst,
           gstInvoice:gstInvoice,
+          businessName,
+          businessAddress,
           date: todaysDate,
-          InvoiceNo:`${MonthName}-${id.generate()}`,
+          InvoiceNo:InvoiceNo,
           Id: id.generate(),
         }).save()
       );
