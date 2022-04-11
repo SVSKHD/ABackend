@@ -4,12 +4,12 @@ const id = require("shortid");
 
 exports.createInvoice = async (req, res) => {
     const Months = ["jan" , "feb" , "mar" , "Aip" , "may" , "jun" , "jul" , "aug" , "sep" , "oct" , "nov" , "dec"]
-    const Month = new Date().getMonth();
+    const Month = new Date().getMonth() + 1;
     const day = new Date().getDate();
-    const year = new Date().getFullYear();
+    const year = new Date().getFullYear().toString().substring(2,4);
     const MonthName = Months[Month]
     const todaysDate = `${day}/${Months[Month]}/${year}`;
-    let InvoiceNo = `${MonthName}-${id.generate()}`
+    let InvoiceNo = `AQB${Month}${year}-${id.generate()}`
     try {
       const { name, phone, email, Type, address ,product, date , price , quantity ,serial ,  businessName , businessAddress, aquakartuser , Gst , gstInvoice , paymentType } = req.body;
       res.json(
