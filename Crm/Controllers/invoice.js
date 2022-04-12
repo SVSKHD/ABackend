@@ -3,45 +3,54 @@ const id = require("shortid");
 
 
 exports.createInvoice = async (req, res) => {
-  const Months = ["jan", "feb", "mar", "Aip", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
-  const Month = new Date().getMonth();
-  const day = new Date().getDate();
-  const year = new Date().getFullYear();
-  const MonthName = Months[Month]
-  const todaysDate = `${day}/${Months[Month]}/${year}`;
-  let InvoiceNo = `${MonthName}-${id.generate()}`
-  try {
-    const { name, phone, email, Type, address, product, date, price, quantity, serial, businessName, businessAddress, aquakartuser, Gst, gstInvoice, paymentType } = req.body;
-    res.json(
-      await new Invoice({
-        name,
-        phone,
-        address,
-        email,
-        Type,
-        product,
-        price,
-        quantity,
-        paymentType: paymentType,
-        isAquakartUser: false,
-        aquakartuser,
-        serial,
-        Gst: Gst,
-        gstInvoice: gstInvoice,
-        businessName,
-        businessAddress,
-        date: todaysDate,
-        InvoiceNo: InvoiceNo,
-        Id: id.generate(),
-      }).save()
-    );
-  } catch (err) {
-    console.log(err);
-    res.status(400).send("Creating Your Crm Invoice Failed");
-  }
-};
+    const Months = ["jan" , "feb" , "mar" , "Aip" , "may" , "jun" , "jul" , "aug" , "sep" , "oct" , "nov" , "dec"]
+    const Month = new Date().getMonth() + 1;
+    const day = new Date().getDate();
+    const year = new Date().getFullYear().toString().substring(2,4)
+    const todaysDate = `${day}/${Months[Month]}/${year}`;
+    let InvoiceNo = `AQB0${Month}${year}-${id.generate()}`
+    try {
+      const { name, phone, email, Type, address ,product, date , price , quantity ,serial ,  businessName , businessAddress, aquakartuser , Gst , gstInvoice , paymentType } = req.body;
+      res.json(
+        await new Invoice({
+          name,
+          phone,
+          address,
+          email,
+          Type,
+          product,
+          price,
+          quantity,
+          paymentType:paymentType,
+          isAquakartUser:false,
+          aquakartuser,
+          serial,
+          Gst:Gst,
+          gstInvoice:gstInvoice,
+          businessName,
+          businessAddress,
+          date: todaysDate,
+          InvoiceNo:InvoiceNo,
+          Id: id.generate(),
+        }).save()
+      );
+    } catch (err) {
+      console.log(err);
+      res.status(400).send("Creating Your Crm Invoice Failed");
+    }
+  };
 
 
+  exports.getInvoices = async (req, res) => {
+    let Invoices = await Invoice.find({})
+      .limit(parseInt(req.params.count))
+      .sort([["createdAt", "desc"]])
+      .exec();
+    res.json(Invoices);
+  };
+
+
+  
 exports.getInvoices = async (req, res) => {
   let Invoices = await Invoice.find({})
     .limit(parseInt(req.params.count))
