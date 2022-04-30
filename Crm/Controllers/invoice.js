@@ -1,5 +1,6 @@
 const Invoice = require("../models/invoices")
-const id = require("shortid");
+const { nanoid } = require('nanoid')
+const id = require("shortid")
 
 
 exports.createInvoice = async (req, res) => {
@@ -7,9 +8,8 @@ exports.createInvoice = async (req, res) => {
     const Month = new Date().getMonth() + 1;
     const day = new Date().getDate();
     const year = new Date().getFullYear().toString().substring(2,4);
-    const MonthName = Months[Month]
-    const todaysDate = `${day}/${Months[Month]}/${year}`;
-    let InvoiceNo = `AQB${Month}${year}-${id.generate()}`
+    const todaysDate = `${day}/${Month}/${year}`;
+    let InvoiceNo = `AQB${Month}${year}-${nanoid().toString().substring(0,4)}`
     try {
       const { name, phone, email, Type, address ,product, date , price , quantity ,serial ,  businessName , businessAddress, aquakartuser , Gst , gstInvoice , paymentType } = req.body;
       res.json(
